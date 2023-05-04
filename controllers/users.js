@@ -41,6 +41,9 @@ const updateProfile = (req, res) => {
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
+      if (err.name === 'CastError') {
+        return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные запроса' });
+      }
       if (err.name === 'DocumentNotFoundError') {
         return res.status(NOT_FOUND).send({ message: 'Пользователь с указанным _id не найден' });
       }
@@ -57,6 +60,9 @@ const updateAvatar = (req, res) => {
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
+      if (err.name === 'CastError') {
+        return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные запроса' });
+      }
       if (err.name === 'DocumentNotFoundError') {
         return res.status(NOT_FOUND).send({ message: 'Пользователь с указанным _id не найден' });
       }

@@ -28,7 +28,7 @@ const useSchema = new mongoose.Schema(
         ref: 'user',
       },
     ],
-    cheatedAt: {
+    createdAt: {
       type: Date,
       default: Date.now,
     },
