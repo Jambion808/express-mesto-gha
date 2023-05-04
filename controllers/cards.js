@@ -24,8 +24,8 @@ const deleteCards = (req, res) => {
     .orFail()
     .then((card) => res.send(card))
     .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        return res.status(NOT_FOUND).send({ message: 'Запрашиваемые данные карточки не найдены' });
+      if (err.name === 'CastError') {
+        return res.status(BAD_REQUEST).send({ message: 'Запрашиваемые данные карточки не найдены' });
       }
       return res.status(SERVER_ERROR).send({ message: 'Ошибка сервера' });
     });
