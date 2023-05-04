@@ -13,8 +13,11 @@ const getUserId = (req, res) => {
     .orFail()
     .then((user) => res.send(user))
     .catch((err) => {
+      if (err.name === 'CastError') {
+        return res.status(BAD_REQUEST).send({ message: 'Переданы некорректные данные запроса' });
+      }
       if (err.name === 'DocumentNotFoundError') {
-        return res.status(BAD_REQUEST).send({ message: ' Переданы некорректные данные пользователя' });
+        return res.status(NOT_FOUND).send({ message: ' Переданы некорректные данные пользователя' });
       }
       return res.status(SERVER_ERROR).send({ message: 'Ошибка сервера' });
     });
