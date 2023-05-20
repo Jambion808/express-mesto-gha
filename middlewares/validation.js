@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
-const regExpLink = /(https?:\/\/)(w{3}\.)?\w+[-._~:/?#[]@!$&'()*,+;=]*#?/;
+const regExpLink = /(https?:\/\/)(www.)?\w+[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=,]*/;
 
 const validCreateUser = celebrate({
   body: Joi.object().keys({
