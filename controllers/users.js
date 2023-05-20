@@ -13,31 +13,51 @@ const getUsers = (req, res, next) => {
     .catch(next);
 };
 
-const getUserId = (req, res, next) => {
-  const { userId } = req.params;
-  User.findById(userId)
-    .orFail()
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь не найден');
-      }
-      res.send(user);
-    })
+const findUser = (id, res, next) => {
+  User.findById(id)
+    .orFail(() => new NotFoundError('Пользователь не найден'))
+    .then((user) => res.send(user))
     .catch(next);
 };
 
-const getUser = (req, res, next) => {
-  const { _id } = req.user;
-  User.findById(_id)
-    .orFail()
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('Пользователь не найден');
-      }
-      res.send(user);
-    })
-    .catch(next);
-};
+const getUserId = (req, res, next) => findUser(req.params.userId, res, next);
+// {
+//   const { userId } = req.params;
+//   User.findById(userId)
+//     .then((user) => {
+//       if (!user) {
+//         throw new NotFoundError('Пользователь не найден');
+//       } else {
+//         res.status(200).send(user);
+//       }
+//     })
+//     .catch(next);
+
+
+  // .orFail()
+  // .then((user) => {
+  //   if (!user) {
+  //     throw new NotFoundError('Пользователь не найден');
+  //   }
+  //   res.send(user);
+  // })
+  // .catch(next);
+// };
+
+const getUser = (req, res, next) => findUser(req.user._id, res, next);
+
+// {
+  // const { _id } = req.user;
+  // User.findById(_id)
+  //   .then((user) => {
+  //     if (!user) {
+  //       throw new NotFoundError('Пользователь не найден');
+  //     } else {
+  //       res.send(user);
+  //     }
+  //   })
+  //   .catch(next);
+// };
 
 const createUser = (req, res, next) => {
   const {
