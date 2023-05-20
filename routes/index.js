@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const usersRouter = require('./users');
 const cardsRouter = require('./cards');
-const errorRouter = require('./error');
+const wrongRouter = require('./error');
 
-router.use('/', usersRouter);
-router.use('/', cardsRouter);
-router.use('/*', errorRouter);
+router.use('/users', usersRouter);
+router.use('/cards', cardsRouter);
+router.use('/*', wrongRouter);
 
 module.exports = router;
