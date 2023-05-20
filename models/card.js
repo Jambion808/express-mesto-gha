@@ -5,13 +5,13 @@ const useSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Заполните поле "name"'],
-      minlength: [2, 'Минимальня длинна поля "name" - 2'],
-      maxlength: [30, 'Максимальная длинна поля "name" - 30'],
+      required: true,
+      minlength: 2,
+      maxlength: 30,
     },
     link: {
       type: String,
-      required: [true, 'Заполните поле "link"'],
+      required: true,
       validate: {
         validator: (v) => validator.isURL(v),
         message: 'Введен некорректный URL',
@@ -33,7 +33,6 @@ const useSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { versionKey: false },
 );
 
 module.exports = mongoose.model('card', useSchema);

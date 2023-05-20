@@ -9,15 +9,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
       default: 'Жак-Ив Кусто',
-      minlength: [2, 'Минимальня длинна поля "name" - 2'],
-      maxlength: [30, 'Максимальная длинна поля "name" - 30'],
+      minlength: 2,
+      maxlength: 30,
     },
     about: {
       type: String,
       required: false,
       default: 'Исследователь',
-      minlength: [2, 'Минимальня длинна поля "about" - 2'],
-      maxlength: [30, 'Максимальная длинна поля "about" - 30'],
+      minlength: 2,
+      maxlength: 30,
     },
     avatar: {
       type: String,
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, 'Заполните поле "email"'],
+      required: true,
       unique: true,
       validate: {
         validator: (v) => validator.isEmail(v),
@@ -39,16 +39,14 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Заполните поле "password"'],
-      minlength: [8, 'Минимальня длинна поля "password" - 8'],
+      required: true,
+      minlength: 8,
       select: false,
     },
   },
-  { versionKey: false },
 );
 
-// eslint-disable-next-line func-names
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function check(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
