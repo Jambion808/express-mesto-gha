@@ -21,43 +21,8 @@ const findUser = (id, res, next) => {
 };
 
 const getUserId = (req, res, next) => findUser(req.params.userId, res, next);
-// {
-//   const { userId } = req.params;
-//   User.findById(userId)
-//     .then((user) => {
-//       if (!user) {
-//         throw new NotFoundError('Пользователь не найден');
-//       } else {
-//         res.status(200).send(user);
-//       }
-//     })
-//     .catch(next);
-
-
-  // .orFail()
-  // .then((user) => {
-  //   if (!user) {
-  //     throw new NotFoundError('Пользователь не найден');
-  //   }
-  //   res.send(user);
-  // })
-  // .catch(next);
-// };
 
 const getUser = (req, res, next) => findUser(req.user._id, res, next);
-
-// {
-  // const { _id } = req.user;
-  // User.findById(_id)
-  //   .then((user) => {
-  //     if (!user) {
-  //       throw new NotFoundError('Пользователь не найден');
-  //     } else {
-  //       res.send(user);
-  //     }
-  //   })
-  //   .catch(next);
-// };
 
 const createUser = (req, res, next) => {
   const {

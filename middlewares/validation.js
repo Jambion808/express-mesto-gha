@@ -33,7 +33,7 @@ const validUpdateProfile = celebrate({
 });
 
 const validUserId = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     userId: Joi.string().required().hex().length(24),
   }),
 });
@@ -46,7 +46,7 @@ const validCreateCard = celebrate({
 });
 
 const validCardId = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     cardId: Joi.string().required().hex().length(24),
   }),
 });
