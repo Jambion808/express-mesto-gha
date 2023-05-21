@@ -43,8 +43,9 @@ const deleteCards = (req, res, next) => {
 };
 
 const likeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
-    .orFail()
+  const { _id } = req.user;
+  const { cardId } = req.params;
+  Card.findByIdAndUpdate(cardId, { $addToSet: { likes: _id } }, { new: true })
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Передан несуществующий _id карточки');
@@ -55,8 +56,9 @@ const likeCard = (req, res, next) => {
 };
 
 const dislikeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: req.user._id } }, { new: true })
-    .orFail()
+  const { _id } = req.user;
+  const { cardId } = req.params;
+  Card.findByIdAndUpdate(cardId, { $pull: { likes: _id } }, { new: true })
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Передан несуществующий _id карточки');
