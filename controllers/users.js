@@ -15,14 +15,14 @@ const getUsers = (req, res, next) => {
 
 const findUser = (id, res, next) => {
   User.findById(id)
-    .orFail(() => new BadRequestError('Пользователь не найден'))
+    .orFail(() => new NotFoundError('Пользователь не найден'))
     .then((user) => res.send(user))
     .catch(next);
 };
 
-const getUserId = (req, res, next) => findUser(req.params.userId, res, next);
-
 const getUser = (req, res, next) => findUser(req.user._id, res, next);
+
+const getUserId = (req, res, next) => findUser(req.params.userId, res, next);
 
 const createUser = (req, res, next) => {
   const {
@@ -78,7 +78,11 @@ const updateProfile = (req, res, next) => {
       res.send(user);
     })
     .catch((err) => {
-      next(err);
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError('Некорректные данные'));
+      } else {
+        next(err);
+      }
     });
 };
 
