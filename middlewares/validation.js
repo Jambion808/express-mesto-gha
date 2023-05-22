@@ -8,27 +8,27 @@ const validCreateUser = celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().pattern(regExpLink),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
   }),
 });
 
 const validLogin = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
   }),
 });
 
 const validUpdateAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(regExpLink),
+    avatar: Joi.string().required().pattern(regExpLink),
   }),
 });
 
 const validUpdateProfile = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30).required(),
   }),
 });
 
